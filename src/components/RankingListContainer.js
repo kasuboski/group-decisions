@@ -11,8 +11,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onChoicesReordered: (choices) => { dispatch( choicesReordered(choices) ) },
-  };
+    onChoicesReordered: (choices) => {
+        dispatch( choicesReordered(choices) ) },
+    };
 };
 
 const RankingListContainer = connect(

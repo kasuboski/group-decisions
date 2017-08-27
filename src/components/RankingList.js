@@ -13,8 +13,12 @@ class RankingList extends Component {
     super(props);
     this.moveCard = this.moveCard.bind(this);
     this.state = {
-      cards: props.items,
+      cards: props.items.map(this.mapItemToCard),
     };
+  }
+
+  mapItemToCard = (item, i) => {
+    return {id: i, text: item};
   }
 
   moveCard(dragIndex, hoverIndex) {
@@ -30,7 +34,7 @@ class RankingList extends Component {
       },
     }));
 
-    this.props.onChoicesReordered(this.state.cards);
+    this.props.onChoicesReordered(this.state.cards.map((card) => card.text));
   }
 
   render() {
