@@ -6,8 +6,7 @@ export default class Choices extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          term: '',
-          items: []
+          term: ''
         };
      }
 
@@ -17,9 +16,10 @@ export default class Choices extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
+
+        this.props.onAddChoice(this.state.term);
         this.setState({
-            term: '',
-            items: [...this.state.items, this.state.term]
+            term: ''
         });
     }
 
@@ -30,7 +30,7 @@ export default class Choices extends Component {
                     <input value={this.state.term} onChange={this.onChange} />
                     <button>Add choice</button>
                 </form>
-                <ChoiceList items={this.state.items} />
+                <ChoiceList items={this.props.choices} />
                 <Link to="/rank">Rank the choices</Link>
             </div>
         );
