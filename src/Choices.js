@@ -25,7 +25,7 @@ export default class Choices extends Component {
     render() {
         return (
             <div>
-                <form className="App" onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit}>
                     <input value={this.state.term} onChange={this.onChange} />
                     <button>Submit</button>
                 </form>

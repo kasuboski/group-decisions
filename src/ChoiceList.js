@@ -1,7 +1,11 @@
 import React from 'react';
 
+const style = {
+    listStyle: 'none',
+};
+
 const ChoiceList = props => (
-  <ul>
+  <ul style={style}>
     {
         props.items.map((item, index) => <li key={index}>{item}</li>)
     }
