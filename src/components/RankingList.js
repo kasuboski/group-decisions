@@ -8,34 +8,19 @@ const style = {
 
 };
 
-class DraggableList extends Component {
+class RankingList extends Component {
   constructor(props) {
     super(props);
     this.moveCard = this.moveCard.bind(this);
     this.state = {
-      cards: [{
-        id: 1,
-        text: 'Write a cool JS library',
-      }, {
-        id: 2,
-        text: 'Make it generic enough',
-      }, {
-        id: 3,
-        text: 'Write README',
-      }, {
-        id: 4,
-        text: 'Create some examples',
-      }, {
-        id: 5,
-        text: 'Spam in Twitter and IRC to promote it (note that this element is taller than the others)',
-      }, {
-        id: 6,
-        text: '???',
-      }, {
-        id: 7,
-        text: 'PROFIT',
-      }],
+      cards: this.mapItems(props.items),
     };
+  }
+
+  mapItems = (items) => {
+      return items.map((item, i) => {
+          return {id: i, text: item};
+      });
   }
 
   moveCard(dragIndex, hoverIndex) {
@@ -71,4 +56,4 @@ class DraggableList extends Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(DraggableList);
+export default DragDropContext(HTML5Backend)(RankingList);
