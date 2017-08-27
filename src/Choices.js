@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import ChoiceList from './ChoiceList';
 
 export default class Choices extends Component {
@@ -27,9 +28,10 @@ export default class Choices extends Component {
             <div>
                 <form onSubmit={this.onSubmit}>
                     <input value={this.state.term} onChange={this.onChange} />
-                    <button>Submit</button>
+                    <button>Add choice</button>
                 </form>
                 <ChoiceList items={this.state.items} />
+                <Link to="/rank">Rank the choices</Link>
             </div>
         );
     }
