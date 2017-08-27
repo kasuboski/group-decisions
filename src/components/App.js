@@ -12,6 +12,7 @@ import { reducer } from '../reducers'
 import './App.css';
 import ChoicesContainer from './ChoicesContainer'
 import RankingListContainer from './RankingListContainer'
+import ResultContainer from './ResultContainer'
 
 const store = createStore(reducer);
 
@@ -23,6 +24,7 @@ class App extends Component {
                 <div className="App">
                     <Route exact path="/" component={ChoicesContainer} />
                     <Route path="/rank" component={RankingListContainer} />
+                    <Route path="/result" component={ResultContainer} />
                 </div>
             </Provider>
         </Router>

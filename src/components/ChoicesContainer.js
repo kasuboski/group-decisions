@@ -5,7 +5,7 @@ import Choices from './Choices';
 
 const mapStateToProps = (state) => {
   return {
-    choices: state.choices
+    choices: state.choices.map((choice) => choice.text)
   };
 };
 

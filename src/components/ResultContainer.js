@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { choicesReordered } from '../actions';
 
-import RankingList from './RankingList';
+import Result from './Result';
 
 const mapStateToProps = (state) => {
   return {
-    items: state.choices
+    result: state.choices[0].text
   };
 };
 
@@ -15,9 +15,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const RankingListContainer = connect(
+const ResultContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RankingList);
+)(Result);
 
-export default RankingListContainer;
+export default ResultContainer;
