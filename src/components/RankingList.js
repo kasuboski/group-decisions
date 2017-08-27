@@ -4,10 +4,6 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
 
-const style = {
-
-};
-
 class RankingList extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +37,7 @@ class RankingList extends Component {
     const { cards } = this.state;
 
     return (
-      <div style={style}>
+      <div>
         {cards.map((card, i) => (
           <Card
             key={card.id}
