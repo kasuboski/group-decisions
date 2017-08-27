@@ -1,7 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 const Result = props => (
-  <h1>The choice is {props.result}</h1>
+    <div>
+        <h1>The result is {props.result}</h1>
+        <Link to="/">Make another decision</Link>
+    </div>
 );
 
 export default Result;
