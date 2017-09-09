@@ -5,3 +5,7 @@ export function addChoice(choice) {
 export function choicesReordered(choices) {
     return { type: 'CHOICES_REORDERED', choices };
 }
+
+export function startOver() {
+    return { type: 'START_OVER' };
+}

@@ -8,7 +8,9 @@ export function reducer(state = initialState, action) {
             const choices = [...state.choices, action.choice];
             return {...state, ...{ choices: choices } };
         case 'CHOICES_REORDERED':
-            return {...state, ...{ choices: action.choices} };
+            return {...state, ...{ choices: action.choices } };
+        case 'START_OVER':
+            return {...state, ...{ choices: [] } };
         default:
             return state;
     }

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { choicesReordered } from '../actions';
+import { choicesReordered, startOver } from '../actions';
 
 import Result from './Result';
 
@@ -9,9 +9,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     onChoicesReordered: (choices) => { dispatch( choicesReordered(choices) ) },
+    onStartOver: () => { props.history.push('/'); dispatch( startOver()) },
   };
 };
 
