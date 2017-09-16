@@ -13,7 +13,8 @@ export function reducer(state = initialState, action) {
         case 'CHOICES_REORDERED':
             return {...state, ...{ choices: action.choices } };
         case 'START_OVER':
-            return {...state, ...{ choices: [] } };
+            const room = state.room;
+            return {...initialState, ...{ room } };
         default:
             return state;
     }

@@ -5,7 +5,7 @@ import Result from './Result';
 
 const mapStateToProps = (state) => {
   return {
-    result: state.choices[0]
+    result: state.choices ? state.choices[0] : [],
   };
 };
 

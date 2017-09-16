@@ -9,4 +9,15 @@ const leaveRoom = (room) => {
     socket.emit('leave', { room });
 };
 
-export { joinRoom, leaveRoom };
+const listenForChoices = (callback) => {
+    socket.on('choiceAdded', (payload) => {
+        console.log('got new choice:', payload.choice);
+        callback(payload.choice);
+    });
+};
+
+const sendChoice = (room, choice) => {
+    socket.emit('addChoice', { room, choice });
+};
+
+export { joinRoom, leaveRoom, listenForChoices, sendChoice };
