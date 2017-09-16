@@ -9,6 +9,12 @@ const Result = props => (
           >
             Start Over
           </button>
+          <button
+            type="button"
+            onClick={props.onQuit}
+          >
+            Quit
+          </button>
     </div>
 );
 

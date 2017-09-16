@@ -2,8 +2,13 @@ const io = require('socket.io')();
 
 io.on('connection', (socket) => {
     socket.on('join', (data) => {
-        console.log('client joined with room', data.room);
+        console.log('client joined with room:', data.room);
         socket.join(data.room);
+    });
+
+    socket.on('leave', (data) => {
+        console.log('client left room:', data.room);
+        socket.leave(data.room);
     });
 
   });

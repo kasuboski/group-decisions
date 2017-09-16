@@ -1,9 +1,12 @@
 const initialState = {
-    choices: []
+    room: '',
+    choices: [],
 }
 
 export function reducer(state = initialState, action) {
     switch(action.type) {
+        case 'JOIN_ROOM':
+            return {...state, ...{ room: action.room }};
         case 'ADD_CHOICE':
             const choices = [...state.choices, action.choice];
             return {...state, ...{ choices: choices } };
