@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import ChoiceList from './ChoiceList';
 
 export default class Choices extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          term: ''
-        };
-     }
+
+     state = {
+        term: ''
+      }
 
     onChange = (event) => {
         this.setState({ term: event.target.value });
