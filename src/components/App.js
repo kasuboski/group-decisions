@@ -5,17 +5,18 @@ import {
 } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import { reducer } from '../reducers';
 
 
 import './App.css';
-import Join from './Join';
+import JoinContainer from './JoinContainer';
 import ChoicesContainer from './ChoicesContainer';
 import RankingListContainer from './RankingListContainer';
 import ResultContainer from './ResultContainer';
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 
 class App extends Component {
   render() {
@@ -23,7 +24,7 @@ class App extends Component {
         <Router>
             <Provider store={store}>
                 <div className="App">
-                    <Route exact path="/" component={Join} />
+                    <Route exact path="/" component={JoinContainer} />
                     <Route path="/choices" component={ChoicesContainer} />
                     <Route path="/rank" component={RankingListContainer} />
                     <Route path="/result" component={ResultContainer} />

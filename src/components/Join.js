@@ -2,9 +2,9 @@ import React from 'react';
 
 export default class Join extends React.Component {
     
-         state = {
+        state = {
             room: ''
-          }
+        }
     
         onChange = (event) => {
             this.setState({ room: event.target.value });
@@ -12,11 +12,11 @@ export default class Join extends React.Component {
     
         onSubmit = (event) => {
             event.preventDefault();
+
+            this.props.joinRoomClicked(this.state.room);
             this.setState({
                 room: ''
             });
-
-            this.props.history.push('/choices');
         }
     
         render() {

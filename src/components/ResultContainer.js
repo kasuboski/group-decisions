@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onChoicesReordered: (choices) => { dispatch( choicesReordered(choices) ) },
-    onStartOver: () => { props.history.push('/'); dispatch( startOver()) },
+    onStartOver: () => { props.history.push('/choices'); dispatch( startOver()) },
   };
 };
 
