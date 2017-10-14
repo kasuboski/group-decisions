@@ -3,19 +3,21 @@ import React from 'react';
 export default class Join extends React.Component {
     
         state = {
-            room: ''
+            room: '',
+            name: '',
         }
     
         onChange = (event) => {
-            this.setState({ room: event.target.value });
+            this.setState({ [event.target.name]: event.target.value });
         }
     
         onSubmit = (event) => {
             event.preventDefault();
 
-            this.props.joinRoomClicked(this.state.room);
+            this.props.joinRoomClicked(this.state.room, this.state.name);
             this.setState({
-                room: ''
+                room: '',
+                name: '',
             });
         }
     
@@ -23,7 +25,16 @@ export default class Join extends React.Component {
             return (
                 <div>
                     <form onSubmit={this.onSubmit}>
-                        <input value={this.state.room} onChange={this.onChange} />
+                        <label>Room
+                            <input name='room' value={this.state.room} onChange={this.onChange} />
+                        </label>
+
+                        <br />
+                        <label>Name
+                            <input name='name' value={this.state.name} onChange={this.onChange} />
+                        </label>
+
+                        <br />
                         <button>Join Room</button>
                     </form>
                 </div>

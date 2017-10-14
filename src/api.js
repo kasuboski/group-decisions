@@ -1,8 +1,8 @@
 import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:8000');
 
-const joinRoom = (room) => {
-    socket.emit('JoinRoom', { room, name: 'Test' });
+const joinRoom = (room, name) => {
+    socket.emit('JoinRoom', { room, name });
 };
 
 const leaveRoom = (room) => {

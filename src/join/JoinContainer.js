@@ -4,7 +4,7 @@ import { joinRoom } from '../actions';
 import Join from './Join';
 
 const mapDispatchToProps = (dispatch, props) => ({
-    joinRoomClicked: (room) => { props.history.push('/choices'); dispatch( joinRoom(room) ); },
+    joinRoomClicked: (room, name) => { props.history.push('/choices'); dispatch( joinRoom(room, name) ); },
 });
 
 export default connect(null, mapDispatchToProps)(Join);
