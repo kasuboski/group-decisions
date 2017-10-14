@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddChoice: (choice) => { dispatch( addChoice(choice) ) },
     onAddChoiceUpdate: (choice) => { dispatch( addChoiceState(choice) ) },
-    onRankChoices: () => { props.history.push('/ranking') },
+    onRankChoices: () => { props.history.push('/rank') },
   };
 };
 
