@@ -1,7 +1,25 @@
+import React, { Component } from 'react';
+
 import { connect } from 'react-redux';
+
+import { listenForChoices } from '../api';
 import { addChoice, addChoiceState } from './choicesActions';
 
 import Choices from './Choices';
+
+class ChoicesListener extends Component {
+  componentDidMount() {
+    listenForChoices((choice) => {
+        this.props.onAddChoiceUpdate(choice);
+    });
+  }
+
+  render() {
+    return (
+      <Choices {...this.props} />
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -20,6 +38,6 @@ const mapDispatchToProps = (dispatch, props) => {
 const ChoicesContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Choices);
+)(ChoicesListener);
 
 export default ChoicesContainer;

@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 
-import { listenForChoices } from '../api';
-
 import ChoiceList from '../components/ChoiceList';
 
 export default class Choices extends Component {
-
-    componentDidMount() {
-        listenForChoices((choice) => {
-            this.props.onAddChoiceUpdate(choice);
-        });
-    }
 
     state = {
         term: ''
