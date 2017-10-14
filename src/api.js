@@ -28,4 +28,4 @@ const sendChoice = (room, choice) => {
   socket.emit('AddChoice', { room, choice });
 };
 
-export { joinRoom, leaveRoom, listenForChoices, sendChoice };
+export { joinRoom, listenForReceiveJoinRoom, leaveRoom, listenForChoices, sendChoice };
