@@ -10,6 +10,7 @@ import store from '../store/createStore';
 
 import './App.css';
 import JoinContainer from '../join/JoinContainer';
+import WaitingToJoin from '../join/WaitingToJoin';
 import ChoicesContainer from '../choices/ChoicesContainer';
 import RankingListContainer from '../ranking/RankingListContainer';
 import ResultContainer from '../result/ResultContainer';
@@ -21,6 +22,7 @@ class App extends Component {
             <Provider store={store}>
                 <div className="App">
                     <Route exact path="/" component={JoinContainer} />
+                    <Route path='/waitToJoin' component={WaitingToJoin} />
                     <Route path="/choices" component={ChoicesContainer} />
                     <Route path="/rank" component={RankingListContainer} />
                     <Route path="/result" component={ResultContainer} />
