@@ -1,9 +1,10 @@
 const io = require('socket.io')();
 
 io.on('connection', (socket) => {
-    socket.on('join', (data) => {
-        console.log('client joined with room:', data.room);
+    socket.on('JoinRoom', (data) => {
+        console.log(`client: ${data.name} joined with room:`, data.room);
         socket.join(data.room);
+        socket.broadcast.to(data.room).emit('ReceiveJoinRoom', { name: data.name });
     });
 
     socket.on('leave', (data) => {
