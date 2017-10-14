@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { listenForChoices } from '../api';
 
-import ChoiceList from './ChoiceList';
+import ChoiceList from '../components/ChoiceList';
 
 export default class Choices extends Component {
 

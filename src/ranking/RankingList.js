@@ -6,7 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import { Link } from 'react-router-dom'
 
-import Card from './Card';
+import Card from '../components/Card';
 
 class RankingList extends Component {
   constructor(props) {

@@ -11,10 +11,10 @@ import { reducer } from '../reducers';
 
 
 import './App.css';
-import JoinContainer from './JoinContainer';
-import ChoicesContainer from './ChoicesContainer';
-import RankingListContainer from './RankingListContainer';
-import ResultContainer from './ResultContainer';
+import JoinContainer from '../join/JoinContainer';
+import ChoicesContainer from '../choices/ChoicesContainer';
+import RankingListContainer from '../ranking/RankingListContainer';
+import ResultContainer from '../result/ResultContainer';
 
 const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 
