@@ -2,6 +2,7 @@ import React from 'react';
 
 const style = {
   listStyle: 'none',
+  padding: 0,
 };
 
 const List = props => (
