@@ -6,7 +6,7 @@ const joinRoom = (room) => {
 };
 
 const leaveRoom = (room) => {
-    socket.emit('leave', { room });
+    socket.emit('LeaveRoom', { room });
 };
 
 const listenForChoices = (callback) => {
