@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import { choicesReordered } from '../actions';
+import { choicesReordered } from '../choices/choicesActions';
 
 import RankingList from './RankingList';
 
 const mapStateToProps = (state) => {
   return {
-    items: state.choices
+    items: state.choicesState.choices
   };
 };
 

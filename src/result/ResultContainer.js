@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
-import { choicesReordered, startOver, quit } from '../actions';
+import { startOver, quit } from './resultActions';
+import { choicesReordered } from '../choices/choicesActions';
 
 import Result from './Result';
 
 const mapStateToProps = (state) => {
   return {
-    result: state.choices ? state.choices[0] : [],
+    result: state.choicesState.choices ? state.choicesState.choices[0] : [],
   };
 };
 

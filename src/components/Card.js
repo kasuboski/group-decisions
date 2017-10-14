@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
-import ItemTypes from '../ItemTypes';
+
+const ItemTypes = {
+  CARD: 'card',
+};
 
 const style = {
   border: '1px dashed gray',

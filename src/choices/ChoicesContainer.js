@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import { addChoice, addChoiceState } from '../actions';
+import { addChoice, addChoiceState } from './choicesActions';
 
 import Choices from './Choices';
 
 const mapStateToProps = (state) => {
   return {
-    choices: state.choices
+    choices: state.choicesState.choices
   };
 };
 
