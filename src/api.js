@@ -39,7 +39,6 @@ const doesRoomExist = async roomId => {
 }
 
 const joinRoom = (roomName, member, isCreator) => {
-  console.log('JoinRoom', {roomName, member, isCreator});
   const room = getRoom(roomName);
   room.set({
     allJoined: false,
