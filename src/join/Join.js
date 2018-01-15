@@ -5,19 +5,24 @@ export default class Join extends React.Component {
         state = {
             room: '',
             name: '',
+            isCreator: false,
         }
     
         onChange = (event) => {
-            this.setState({ [event.target.name]: event.target.value });
+            const target = event.target;
+            const value = target.type === 'checkbox' ? target.checked : target.value;
+            const name = target.name;
+            this.setState({ [name]: value });
         }
     
         onSubmit = (event) => {
             event.preventDefault();
 
-            this.props.joinRoomClicked(this.state.room, this.state.name);
+            this.props.joinRoomClicked(this.state.room, this.state.name, this.state.isCreator);
             this.setState({
                 room: '',
                 name: '',
+                isCreator: false,
             });
         }
     
@@ -32,6 +37,11 @@ export default class Join extends React.Component {
                         <br />
                         <label>Name
                             <input name='name' value={this.state.name} onChange={this.onChange} />
+                        </label>
+
+                        <br />
+                        <label>Creator
+                            <input name='isCreator' type='checkbox' checked={this.state.isCreator} onChange={this.onChange} />
                         </label>
 
                         <br />

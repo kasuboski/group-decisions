@@ -1,16 +1,14 @@
 import {
-    signIn,
     joinRoom as joinRoomApi,
 } from '../api';
 
-function joinRoomState(room, name) {
+function joinRoomState(room, name, isCreator) {
     return { type: 'JOIN_ROOM', room, name };
 }
 
-export function joinRoom(room, name) {
+export function joinRoom(room, name, isCreator) {
     return dispatch => {
-        signIn();
-        joinRoomApi(room, name);
-        dispatch( joinRoomState(room, name) );
+        joinRoomApi(room, name, isCreator);
+        dispatch( joinRoomState(room, name, isCreator) );
     }
 }

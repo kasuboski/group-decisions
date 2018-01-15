@@ -30,8 +30,8 @@ const subscribeToAuthChanges = callback => {
   firebase.auth().onAuthStateChanged(callback);
 }
 
-const joinRoom = (room, name) => {
-  console.log('JoinRoom', {room, name});
+const joinRoom = (room, name, isCreator) => {
+  console.log('JoinRoom', {room, name, isCreator});
 };
 
 const listenForReceiveJoinRoom = (callback) => {
