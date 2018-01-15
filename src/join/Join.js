@@ -7,7 +7,6 @@ import JoinForm from './JoinForm';
 
 class Join extends React.Component {
     submit = (values) => {
-        console.log(values);
         const { room, name, isCreator } = values;
         return doesRoomExist(room).then(roomExists => {
             if (isCreator) {
