@@ -2,8 +2,6 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { listenForReceiveJoinRoom } from '../api';
-
 import Waiting from '../components/Waiting';
 
 class WaitingToJoin extends React.Component {
@@ -19,9 +17,6 @@ class WaitingToJoin extends React.Component {
 
 class WaitingToJoinListener extends React.Component {
   componentDidMount() {
-    listenForReceiveJoinRoom((name) => {
-      // dispatch action to add name
-    });
   }
 
   render() {
@@ -32,7 +27,7 @@ class WaitingToJoinListener extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  players: state.infoState.otherPlayers,
+  players: [],
 });
 
 const mapDispatchToProps = {};

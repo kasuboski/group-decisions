@@ -30,16 +30,25 @@ const subscribeToAuthChanges = callback => {
   firebase.auth().onAuthStateChanged(callback);
 }
 
-const joinRoom = (room, name, isCreator) => {
-  console.log('JoinRoom', {room, name, isCreator});
-};
+const getRoom = roomName => firebase.firestore().collection('rooms').doc(roomName);
 
-const listenForReceiveJoinRoom = (callback) => {
-  // socket.on('ReceiveJoinRoom', (payload) => {
-  //   const { name } = payload;
-  //   console.log(`${name} just joined`);
-  //   callback(name);
-  // });
+const doesRoomExist = async roomId => {
+  const roomRef = getRoom(roomId);
+  const room = await roomRef.get();
+  return room.exists;
+}
+
+const joinRoom = (roomName, member, isCreator) => {
+  console.log('JoinRoom', {roomName, member, isCreator});
+  const room = getRoom(roomName);
+  room.set({
+    allJoined: false,
+  });
+
+  room.collection('members').doc(member.uid).set({
+    isCreator,
+    name: member.name,
+  });
 };
 
 const leaveRoom = (room) => {
@@ -60,8 +69,8 @@ const sendChoice = (room, choice) => {
 export { 
   signIn,
   subscribeToAuthChanges,
+  doesRoomExist,
   joinRoom,
-  listenForReceiveJoinRoom,
   leaveRoom,
   listenForChoices,
   sendChoice

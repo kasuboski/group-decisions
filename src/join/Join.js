@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { doesRoomExist } from 'api';
+
 export default class Join extends React.Component {
     
         state = {
@@ -15,7 +17,7 @@ export default class Join extends React.Component {
             this.setState({ [name]: value });
         }
     
-        onSubmit = (event) => {
+        onSubmit = async (event) => {
             event.preventDefault();
 
             this.props.joinRoomClicked(this.state.room, this.state.name, this.state.isCreator);
