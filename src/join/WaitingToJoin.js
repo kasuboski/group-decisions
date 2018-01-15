@@ -2,35 +2,46 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import Waiting from '../components/Waiting';
+import { subscribeToMembers } from 'api';
+import { getRoom, isCreator } from 'auth/authSelectors';
+
+import Waiting from 'components/Waiting';
 
 class WaitingToJoin extends React.Component {
   render() {
     return (
       <div>
-        <Waiting items={this.props.players} showStatus={false} />
-        <button>All joined</button>
+        <Waiting items={this.props.members || []} showStatus={false} />
+        {this.props.isCreator && <button>All joined</button>}
       </div>
     );
   }
 }
 
 class WaitingToJoinListener extends React.Component {
+  state = {
+    data: null,
+  }
+
   componentDidMount() {
+    this.unsubscribe = subscribeToMembers(this.props.room, members => this.setState({data: members}));
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render() {
     return (
-      <WaitingToJoin {...this.props} />
+      <WaitingToJoin {...this.props} members={this.state.data} />
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  players: [],
+  room: getRoom(state),
+  isCreator: isCreator(state),
 });
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(WaitingToJoinListener);
+export default connect(mapStateToProps)(WaitingToJoinListener);
 

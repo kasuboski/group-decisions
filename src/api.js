@@ -40,9 +40,11 @@ const doesRoomExist = async roomId => {
 
 const joinRoom = (roomName, member, isCreator) => {
   const room = getRoom(roomName);
-  room.set({
-    allJoined: false,
-  });
+  if (isCreator) {
+    room.set({
+      allJoined: false,
+    });
+  }
 
   room.collection('members').doc(member.uid).set({
     isCreator,
@@ -52,6 +54,15 @@ const joinRoom = (roomName, member, isCreator) => {
 
 const leaveRoom = (room) => {
   console.log('LeaveRoom', { room });
+};
+
+const subscribeToMembers = (room, cb) => {
+  return getRoom(room).collection('members').onSnapshot(snapshot => {
+    const members = [];
+    snapshot.forEach(doc => members.push(doc.data()));
+
+    cb(members);
+  }).catch(error => console.error(error));
 };
 
 const listenForChoices = (callback) => {
@@ -71,6 +82,7 @@ export {
   doesRoomExist,
   joinRoom,
   leaveRoom,
+  subscribeToMembers,
   listenForChoices,
   sendChoice
 };
