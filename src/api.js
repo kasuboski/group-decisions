@@ -24,19 +24,13 @@ const signIn = () => {
   firebase.auth().signInAnonymously().catch(error => {
     console.error(error);
   });
+};
 
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      console.log('Got user', user.uid);
-    } else {
-      console.log('No user');
-    }
-  });
-
+const subscribeToAuthChanges = callback => {
+  firebase.auth().onAuthStateChanged(callback);
 }
 
 const joinRoom = (room, name) => {
-  console.log(REACT_APP_FIREBASE_API_KEY);
   console.log('JoinRoom', {room, name});
 };
 
@@ -65,6 +59,7 @@ const sendChoice = (room, choice) => {
 
 export { 
   signIn,
+  subscribeToAuthChanges,
   joinRoom,
   listenForReceiveJoinRoom,
   leaveRoom,

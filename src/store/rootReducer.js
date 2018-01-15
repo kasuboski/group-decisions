@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import choicesReducer from '../choices/choicesReducer';
-import infoReducer from '../infoReducer';
+import authReducer from 'auth/authReducer';
+import choicesReducer from 'choices/choicesReducer';
+import infoReducer from 'infoReducer';
 
 const rootReducer = combineReducers({
+    authState: authReducer,
     infoState: infoReducer,
     choicesState: choicesReducer,
 });
