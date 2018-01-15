@@ -1,31 +1,28 @@
-import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:8000');
-
 const joinRoom = (room, name) => {
-  socket.emit('JoinRoom', { room, name });
+  console.log('JoinRoom', {room, name});
 };
 
 const listenForReceiveJoinRoom = (callback) => {
-  socket.on('ReceiveJoinRoom', (payload) => {
-    const { name } = payload;
-    console.log(`${name} just joined`);
-    callback(name);
-  });
+  // socket.on('ReceiveJoinRoom', (payload) => {
+  //   const { name } = payload;
+  //   console.log(`${name} just joined`);
+  //   callback(name);
+  // });
 };
 
 const leaveRoom = (room) => {
-  socket.emit('LeaveRoom', { room });
+  console.log('LeaveRoom', { room });
 };
 
 const listenForChoices = (callback) => {
-  socket.on('ReceiveChoice', (payload) => {
-    console.log('got new choice:', payload.choice);
-    callback(payload.choice);
-  });
+  // socket.on('ReceiveChoice', (payload) => {
+  //   console.log('got new choice:', payload.choice);
+  //   callback(payload.choice);
+  // });
 };
 
 const sendChoice = (room, choice) => {
-  socket.emit('AddChoice', { room, choice });
+  console.log('AddChoice', { room, choice });
 };
 
 export { joinRoom, listenForReceiveJoinRoom, leaveRoom, listenForChoices, sendChoice };
