@@ -7,14 +7,14 @@ function joinRoomState(room, member, isCreator) {
 }
 
 export function joinRoom(room, name, isCreator) {
-    return (dispatch, getState) => {
+    return async (dispatch, getState) => {
         const user = getState().authState.user;
         const uid = user ? user.uid : '';
         const member = {
             uid,
             name,
         };
-        joinRoomApi(room, member, isCreator);
+        await joinRoomApi(room, member, isCreator);
         dispatch( joinRoomState(room, member, isCreator) );
     }
 }

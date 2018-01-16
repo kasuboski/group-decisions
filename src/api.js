@@ -38,15 +38,15 @@ const doesRoomExist = async roomId => {
   return room.exists;
 }
 
-const joinRoom = (roomName, member, isCreator) => {
+const joinRoom = async (roomName, member, isCreator) => {
   const room = getRoom(roomName);
   if (isCreator) {
-    room.set({
+    await room.set({
       allJoined: false,
     });
   }
 
-  room.collection('members').doc(member.uid).set({
+  await room.collection('members').doc(member.uid).set({
     isCreator,
     name: member.name,
   });
@@ -62,7 +62,7 @@ const subscribeToMembers = (room, cb) => {
     snapshot.forEach(doc => members.push(doc.data()));
 
     cb(members);
-  }).catch(error => console.error(error));
+  }, error => console.error(error));
 };
 
 const listenForChoices = (callback) => {
