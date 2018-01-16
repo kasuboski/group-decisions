@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { subscribeToMembers } from 'api';
+import { allJoined } from 'join/joinActions';
 import { getRoom, isCreator } from 'auth/authSelectors';
 
 import Waiting from 'components/Waiting';
@@ -12,7 +13,7 @@ class WaitingToJoin extends React.Component {
     return (
       <div>
         <Waiting items={this.props.members || []} showStatus={false} />
-        {this.props.isCreator && <button>All joined</button>}
+        {this.props.isCreator && <button onClick={this.props.handleAllJoined}>All joined</button>}
       </div>
     );
   }
@@ -26,7 +27,6 @@ class WaitingToJoinListener extends React.Component {
   unsubscribe = null;
 
   updateMembers = (members) => {
-    console.log(members);
     this.setState({data: members});
   }
 
@@ -50,5 +50,9 @@ const mapStateToProps = (state) => ({
   isCreator: isCreator(state),
 });
 
-export default connect(mapStateToProps)(WaitingToJoinListener);
+const mapDispatchToProps = {
+  handleAllJoined: allJoined,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WaitingToJoinListener);
 

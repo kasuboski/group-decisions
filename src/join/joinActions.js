@@ -1,6 +1,9 @@
 import {
     joinRoom as joinRoomApi,
-} from '../api';
+    setAllJoined,
+} from 'api';
+
+import { getUser, getRoom } from 'auth/authSelectors';
 
 function joinRoomState(room, member, isCreator) {
     return { type: 'JOIN_ROOM', room, member, isCreator };
@@ -8,7 +11,7 @@ function joinRoomState(room, member, isCreator) {
 
 export function joinRoom(room, name, isCreator) {
     return async (dispatch, getState) => {
-        const user = getState().authState.user;
+        const user = getUser(getState());
         const uid = user ? user.uid : '';
         const member = {
             uid,
@@ -16,5 +19,11 @@ export function joinRoom(room, name, isCreator) {
         };
         await joinRoomApi(room, member, isCreator);
         dispatch( joinRoomState(room, member, isCreator) );
+    }
+}
+
+export function allJoined() {
+    return async (dispatch, getState) => {
+        await setAllJoined(getRoom(getState()));
     }
 }

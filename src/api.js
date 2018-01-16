@@ -65,6 +65,13 @@ const subscribeToMembers = (room, cb) => {
   }, error => console.error(error));
 };
 
+const setAllJoined = room => {
+  const roomRef = getRoom(room);
+  return roomRef.update({
+    allJoined: true,
+  });
+}
+
 const listenForChoices = (callback) => {
   // socket.on('ReceiveChoice', (payload) => {
   //   console.log('got new choice:', payload.choice);
@@ -83,6 +90,7 @@ export {
   joinRoom,
   leaveRoom,
   subscribeToMembers,
+  setAllJoined,
   listenForChoices,
   sendChoice
 };
