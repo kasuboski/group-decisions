@@ -23,8 +23,15 @@ class WaitingToJoinListener extends React.Component {
     data: null,
   }
 
+  unsubscribe = null;
+
+  updateMembers = (members) => {
+    console.log(members);
+    this.setState({data: members});
+  }
+
   componentDidMount() {
-    this.unsubscribe = subscribeToMembers(this.props.room, members => this.setState({data: members}));
+    this.unsubscribe = subscribeToMembers(this.props.room, this.updateMembers);
   }
 
   componentWillUnmount() {
