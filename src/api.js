@@ -72,11 +72,13 @@ const setAllJoined = room => {
   });
 }
 
-const listenForChoices = (callback) => {
-  // socket.on('ReceiveChoice', (payload) => {
-  //   console.log('got new choice:', payload.choice);
-  //   callback(payload.choice);
-  // });
+const subscribeToChoices = (room, cb) => {
+  return getRoom(room).collection('choices').onSnapshot(snapshot => {
+    const choices = [];
+    snapshot.forEach(doc => choices.push(doc.data()));
+
+    cb(choices);
+  }, error => console.error(error));
 };
 
 const addChoice = (room, choice) => {
@@ -91,6 +93,6 @@ export {
   leaveRoom,
   subscribeToMembers,
   setAllJoined,
-  listenForChoices,
+  subscribeToChoices,
   addChoice,
 };

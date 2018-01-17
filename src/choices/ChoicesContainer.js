@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { listenForChoices } from 'api';
-import { addChoice, addChoiceState } from './choicesActions';
+import { getRoom } from 'auth/authSelectors';
+import { subscribeToChoices } from 'api';
+import { addChoice, addChoices } from './choicesActions';
 
 import Choices from './Choices';
 
 class ChoicesListener extends Component {
   componentDidMount() {
-    listenForChoices((choice) => {
-        this.props.onAddChoiceUpdate(choice);
+    subscribeToChoices(this.props.room, (choices) => {
+        this.props.onChoicesUpdate(choices);
     });
   }
 
@@ -23,14 +24,15 @@ class ChoicesListener extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    choices: state.choicesState.choices
+    room: getRoom(state),
+    choices: state.choicesState.choices,
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddChoice: (choice) => { dispatch( addChoice(choice) ) },
-    onAddChoiceUpdate: (choice) => { dispatch( addChoiceState(choice) ) },
+    onChoicesUpdate: (choices) => { dispatch( addChoices(choices) ) },
     onRankChoices: () => { props.history.push('/rank') },
   };
 };

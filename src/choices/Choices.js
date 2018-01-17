@@ -38,7 +38,7 @@ export default class Choices extends Component {
           onClick={this.props.onRankChoices}
         >
           Rank the choices
-                </button>
+        </button>
       </div>
     );
   }

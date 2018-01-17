@@ -4,15 +4,14 @@ import {
 
 import { getRoom } from 'auth/authSelectors';
 
-export function addChoiceState(choice) {
-    return { type: 'ADD_CHOICE', choice };
+export function addChoices(choices) {
+    return { type: 'ADD_CHOICES', choices };
 }
 
 export function addChoice(choice) {
-    return (dispatch, getState) => {
+    return async (dispatch, getState) => {
         const room = getRoom(getState());
-        addChoiceApi(room, choice);
-        dispatch( addChoiceState(choice) );
+        await addChoiceApi(room, choice);
     };
 }
 
