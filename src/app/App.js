@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+
 import {
-  BrowserRouter as Router,
   Route
 } from 'react-router-dom';
 
-import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
 
-import store from 'store/createStore';
+import store, { history } from 'store/createStore';
 
 import './App.css';
 import Auth from 'auth/Auth';
@@ -19,8 +20,8 @@ import ResultContainer from 'result/ResultContainer';
 class App extends Component {
   render() {
     return (
-      <Router>
-        <Provider store={store}>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
           <div className="App">
             <Auth />
             <Route exact path="/" component={JoinContainer} />
@@ -29,8 +30,8 @@ class App extends Component {
             <Route path="/rank" component={RankingListContainer} />
             <Route path="/result" component={ResultContainer} />
           </div>
-        </Provider>
-      </Router>
+        </ConnectedRouter>
+      </Provider>
     );
   }
 }

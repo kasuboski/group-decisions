@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux';
+
 import {
     joinRoom as joinRoomApi,
     setAllJoined,
@@ -19,6 +21,7 @@ export function joinRoom(room, name, isCreator) {
         };
         await joinRoomApi(room, member, isCreator);
         dispatch( joinRoomState(room, member, isCreator) );
+        dispatch( push('/waitToJoin') );
     }
 }
 
