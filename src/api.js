@@ -109,22 +109,60 @@ const determineRank = (numChoices, index) => (numChoices - index);
 const rankChoices = async (room, uid, rankedChoices) => {
   const numChoices = rankedChoices.length;
   const roomRef = getRoom(room);
-  const choicesRef = roomRef.collection('choices');
 
   const choicesInfo = rankedChoices.map((choice, idx) => (
     { 
-      ref: choicesRef.doc(choice.id).collection('ranks').doc(uid), 
+      id: choice.id,
+      ref: roomRef.collection('ranks').doc(), 
       rank: determineRank(numChoices, idx)
     }
   ));
 
   const batch = firebase.firestore().batch();
   choicesInfo.forEach(choice => {
-    batch.set(choice.ref, { value: choice.rank });
+    batch.set(choice.ref, { uid, id: choice.id, value: choice.rank });
   });
 
   await batch.commit();
-}
+};
+
+const getRankingsByChoice = async room => {
+    const rankingsByChoice = {};
+    const snapshot = await getRoom(room).collection('ranks').get();
+  
+    snapshot.forEach(doc => {
+      if (doc && doc.data()) {
+        const { id } = doc.data();
+
+        if (rankingsByChoice[id]) {
+          rankingsByChoice[id].push(doc.data());
+        } else {
+          rankingsByChoice[id] = [doc.data()];
+        }
+      } else {
+        throw new Error('rankings document was empty');
+      }
+    });
+
+    return rankingsByChoice;
+};
+
+const sumRankingsReducer = (accum, currValue) => {
+  return accum + parseInt(currValue.value, 10);
+};
+const determineScore = (rankings) => rankings.reduce(sumRankingsReducer, 0);
+
+const getResult = async (room, choices) => {
+  const rankingsByChoice = await getRankingsByChoice(room);
+  const scores = Object.getOwnPropertyNames(rankingsByChoice).map(choice => {
+    return {
+      choiceId: choice,
+      score: determineScore(rankingsByChoice[choice]),
+    };
+  });
+
+  return scores.sort()[0];
+};
 
 export { 
   signIn,
@@ -137,6 +175,7 @@ export {
   setAllJoined,
   subscribeToAllJoined,
   subscribeToChoices,
-  rankChoices,
   addChoice,
+  rankChoices,
+  getResult,
 };
