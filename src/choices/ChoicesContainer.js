@@ -10,10 +10,16 @@ import { addChoice, addChoices } from 'choices/choicesActions';
 import Choices from './Choices';
 
 class ChoicesListener extends Component {
+  unsubscribe = null;
+
   componentDidMount() {
-    subscribeToChoices(this.props.room, (choices) => {
+    this.unsubscribe = subscribeToChoices(this.props.room, (choices) => {
         this.props.onChoicesUpdate(choices);
     });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render() {
