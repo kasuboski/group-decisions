@@ -30,6 +30,7 @@ class App extends Component {
             <Route path="/choices" component={ChoicesContainer} />
             <Route path="/waitForChoices" component={WaitForChoices} />
             <Route path="/rank" component={RankingListContainer} />
+            <Route path="/waitForRanking" component={WaitForChoices} />
             <Route path="/result" component={ResultContainer} />
           </div>
         </ConnectedRouter>

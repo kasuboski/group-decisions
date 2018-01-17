@@ -1,4 +1,4 @@
-import { push } from 'react-router-redux';
+import { push, getLocation } from 'react-router-redux';
 
 import {
     addChoice as addChoiceApi,
@@ -36,7 +36,9 @@ export function updateMembers(members) {
     return async (dispatch, getState) => {
         dispatch( membersUpdated(members) );
         if (areAllMembersReady(members)) {
-            dispatch( push('/rank') );
+            const { pathname } = getLocation(getState());
+            const nextRoute = pathname === '/waitForChoices' ? '/rank' : '/result';
+            dispatch( push(nextRoute) );
             dispatch( membersUpdated([]) );
 
             const room = getRoom(getState());
