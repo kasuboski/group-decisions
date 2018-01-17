@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 import { getRoom } from 'auth/authSelectors';
 import { subscribeToChoices } from 'api';
-import { addChoice, addChoices } from './choicesActions';
+import { getChoices } from 'choices/choicesSelectors';
+import { addChoice, addChoices } from 'choices/choicesActions';
 
 import Choices from './Choices';
 
@@ -25,7 +26,7 @@ class ChoicesListener extends Component {
 const mapStateToProps = (state) => {
   return {
     room: getRoom(state),
-    choices: state.choicesState.choices,
+    choices: getChoices(state),
   };
 };
 

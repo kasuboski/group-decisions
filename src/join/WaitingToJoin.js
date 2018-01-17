@@ -3,10 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { subscribeToMembers } from 'api';
-import { allJoined } from 'join/joinActions';
+import { allJoined, allJoinedUpdate } from 'join/joinActions';
 import { getRoom, isCreator } from 'auth/authSelectors';
 
 import Waiting from 'components/Waiting';
+import { subscribeToAllJoined } from '../api';
 
 class WaitingToJoin extends React.Component {
   render() {
@@ -24,18 +25,21 @@ class WaitingToJoinListener extends React.Component {
     data: null,
   }
 
-  unsubscribe = null;
+  unsubscribeMembers = null;
+  unsubscribeAllJoined = null;
 
   updateMembers = (members) => {
     this.setState({data: members});
   }
 
   componentDidMount() {
-    this.unsubscribe = subscribeToMembers(this.props.room, this.updateMembers);
+    this.unsubscribeMembers = subscribeToMembers(this.props.room, this.updateMembers);
+    this.unsubscribeAllJoined = subscribeToAllJoined(this.props.room, this.props.updateAllJoined);
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
+    this.unsubscribeMembers();
+    this.unsubscribeAllJoined();
   }
 
   render() {
@@ -50,9 +54,10 @@ const mapStateToProps = (state) => ({
   isCreator: isCreator(state),
 });
 
-const mapDispatchToProps = {
-  handleAllJoined: allJoined,
-};
+const mapDispatchToProps = dispatch => ({
+  handleAllJoined: () => dispatch(allJoined()),
+  updateAllJoined: (allJoined) => dispatch(allJoinedUpdate(allJoined)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(WaitingToJoinListener);
 

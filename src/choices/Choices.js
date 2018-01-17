@@ -30,7 +30,7 @@ export default class Choices extends Component {
         </form>
         <List
           items={this.props.choices}
-          renderItem={(item) => item}
+          renderItem={(item) => item.name}
         />
 
         <button

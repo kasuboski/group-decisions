@@ -2,7 +2,7 @@ import {
     addChoice as addChoiceApi,
 } from 'api';
 
-import { getRoom } from 'auth/authSelectors';
+import { getRoom, getUser } from 'auth/authSelectors';
 
 export function addChoices(choices) {
     return { type: 'ADD_CHOICES', choices };
@@ -11,7 +11,8 @@ export function addChoices(choices) {
 export function addChoice(choice) {
     return async (dispatch, getState) => {
         const room = getRoom(getState());
-        await addChoiceApi(room, choice);
+        const uid = getUser(getState()).uid;
+        await addChoiceApi(room, uid, choice);
     };
 }
 

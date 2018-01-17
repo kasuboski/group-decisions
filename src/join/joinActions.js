@@ -25,6 +25,16 @@ export function joinRoom(room, name, isCreator) {
     }
 }
 
+export function allJoinedUpdate(allJoined) {
+    return dispatch => {
+        if (allJoined) {
+            dispatch( push('/choices') );
+        } else {
+            console.log('allJoined not truthy');
+        }
+    }
+}
+
 export function allJoined() {
     return async (dispatch, getState) => {
         await setAllJoined(getRoom(getState()));

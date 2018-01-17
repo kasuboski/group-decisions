@@ -70,7 +70,14 @@ const setAllJoined = room => {
   return roomRef.update({
     allJoined: true,
   });
-}
+};
+
+const subscribeToAllJoined = (room, cb) => {
+  const roomRef = getRoom(room);
+  return roomRef.onSnapshot(doc => {
+    cb(doc && doc.data().allJoined);
+  });
+};
 
 const subscribeToChoices = (room, cb) => {
   return getRoom(room).collection('choices').onSnapshot(snapshot => {
@@ -81,8 +88,13 @@ const subscribeToChoices = (room, cb) => {
   }, error => console.error(error));
 };
 
-const addChoice = (room, choice) => {
-  console.log('AddChoice', { room, choice });
+const addChoice = (room, uid, choice) => {
+  const roomRef = getRoom(room);
+  roomRef.collection('choices').add({
+    name: choice,
+    added_at: new Date(),
+    added_by: uid,
+  })
 };
 
 export { 
@@ -93,6 +105,7 @@ export {
   leaveRoom,
   subscribeToMembers,
   setAllJoined,
+  subscribeToAllJoined,
   subscribeToChoices,
   addChoice,
 };
