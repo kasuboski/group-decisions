@@ -4,8 +4,6 @@ import update from 'react/lib/update';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import { Link } from 'react-router-dom'
-
 import Card from '../components/Card';
 
 class RankingList extends Component {
@@ -51,7 +49,12 @@ class RankingList extends Component {
             moveCard={this.moveCard}
           />
         ))}
-        <Link to="/result">Done Ranking</Link>
+        <button
+          type="button"
+          onClick={this.props.onDoneRanking}
+        >
+          Done Ranking
+        </button>
       </div>
     );
   }

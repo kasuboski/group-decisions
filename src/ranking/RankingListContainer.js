@@ -1,19 +1,22 @@
 import { connect } from 'react-redux';
-import { choicesReordered } from '../choices/choicesActions';
+
+import { getChoices } from 'choices/choicesSelectors';
+import { choicesReordered } from 'choices/choicesActions';
+import { doneRanking } from 'ranking/rankingActions';
 
 import RankingList from './RankingList';
 
 const mapStateToProps = (state) => {
   return {
-    items: state.choicesState.choices
+    items: getChoices(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onChoicesReordered: (choices) => {
-        dispatch( choicesReordered(choices) ) },
-    };
+    onChoicesReordered: (choices) => { dispatch( choicesReordered(choices) ) },
+    onDoneRanking: () => { dispatch( doneRanking() ) },
+  };
 };
 
 const RankingListContainer = connect(
