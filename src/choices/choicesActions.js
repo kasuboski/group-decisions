@@ -1,6 +1,8 @@
 import {
-    sendChoice,
-} from '../api';
+    addChoice as addChoiceApi,
+} from 'api';
+
+import { getRoom } from 'auth/authSelectors';
 
 export function addChoiceState(choice) {
     return { type: 'ADD_CHOICE', choice };
@@ -8,8 +10,8 @@ export function addChoiceState(choice) {
 
 export function addChoice(choice) {
     return (dispatch, getState) => {
-        const room = getState().infoState.room;
-        sendChoice(room, choice);
+        const room = getRoom(getState());
+        addChoiceApi(room, choice);
         dispatch( addChoiceState(choice) );
     };
 }

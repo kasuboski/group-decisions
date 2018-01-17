@@ -79,7 +79,7 @@ const listenForChoices = (callback) => {
   // });
 };
 
-const sendChoice = (room, choice) => {
+const addChoice = (room, choice) => {
   console.log('AddChoice', { room, choice });
 };
 
@@ -92,5 +92,5 @@ export {
   subscribeToMembers,
   setAllJoined,
   listenForChoices,
-  sendChoice
+  addChoice,
 };

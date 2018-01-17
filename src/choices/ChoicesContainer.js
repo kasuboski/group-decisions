@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { listenForChoices } from '../api';
+import { listenForChoices } from 'api';
 import { addChoice, addChoiceState } from './choicesActions';
 
 import Choices from './Choices';

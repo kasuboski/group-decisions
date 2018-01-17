@@ -28,5 +28,6 @@ export function joinRoom(room, name, isCreator) {
 export function allJoined() {
     return async (dispatch, getState) => {
         await setAllJoined(getRoom(getState()));
+        dispatch( push('/choices') );
     }
 }
