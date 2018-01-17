@@ -29,8 +29,6 @@ export function allJoinedUpdate(allJoined) {
     return dispatch => {
         if (allJoined) {
             dispatch( push('/choices') );
-        } else {
-            console.log('allJoined not truthy');
         }
     }
 }
