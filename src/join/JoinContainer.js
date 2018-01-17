@@ -1,7 +1,5 @@
-import React from 'react';
 import { connect } from 'react-redux';
 
-import { getRoom } from 'auth/authSelectors';
 import { joinRoom } from './joinActions';
 
 import Join from './Join';
