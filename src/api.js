@@ -161,7 +161,7 @@ const getResult = async (room, choices) => {
     };
   });
 
-  return scores.sort()[0];
+  return scores.sort((a, b) => b.score-a.score)[0];
 };
 
 export { 
