@@ -14,6 +14,7 @@ import Auth from 'auth/Auth';
 import JoinContainer from 'join/JoinContainer';
 import WaitingToJoin from 'join/WaitingToJoin';
 import ChoicesContainer from 'choices/ChoicesContainer';
+import WaitForChoices from 'choices/WaitForChoices';
 import RankingListContainer from 'ranking/RankingListContainer';
 import ResultContainer from 'result/ResultContainer';
 
@@ -27,6 +28,7 @@ class App extends Component {
             <Route exact path="/" component={JoinContainer} />
             <Route path='/waitToJoin' component={WaitingToJoin} />
             <Route path="/choices" component={ChoicesContainer} />
+            <Route path="/waitForChoices" component={WaitForChoices} />
             <Route path="/rank" component={RankingListContainer} />
             <Route path="/result" component={ResultContainer} />
           </div>

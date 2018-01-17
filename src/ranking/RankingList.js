@@ -18,7 +18,7 @@ class RankingList extends Component {
   }
 
   mapItemToCard = (item, i) => {
-    return {id: i, text: item};
+    return {id: i, text: item.name};
   }
 
   moveCard(dragIndex, hoverIndex) {

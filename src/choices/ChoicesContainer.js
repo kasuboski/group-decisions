@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getRoom } from 'auth/authSelectors';
 import { subscribeToChoices } from 'api';
 import { getChoices } from 'choices/choicesSelectors';
-import { addChoice, addChoices } from 'choices/choicesActions';
+import { addChoice, addChoices, doneWithChoices } from 'choices/choicesActions';
 
 import Choices from './Choices';
 
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddChoice: (choice) => { dispatch( addChoice(choice) ) },
     onChoicesUpdate: (choices) => { dispatch( addChoices(choices) ) },
-    onRankChoices: () => { props.history.push('/rank') },
+    onRankChoices: () => { dispatch( doneWithChoices() ) },
   };
 };
 

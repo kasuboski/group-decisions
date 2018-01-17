@@ -65,6 +65,13 @@ const subscribeToMembers = (room, cb) => {
   }, error => console.error(error));
 };
 
+const markMemberReady = async (room, uid, ready) => {
+  const roomRef = getRoom(room);
+  await roomRef.collection('members').doc(uid).update({
+    ready
+  });
+}
+
 const setAllJoined = room => {
   const roomRef = getRoom(room);
   return roomRef.update({
@@ -104,6 +111,7 @@ export {
   joinRoom,
   leaveRoom,
   subscribeToMembers,
+  markMemberReady,
   setAllJoined,
   subscribeToAllJoined,
   subscribeToChoices,
