@@ -89,7 +89,7 @@ const subscribeToAllJoined = (room, cb) => {
 const subscribeToChoices = (room, cb) => {
   return getRoom(room).collection('choices').onSnapshot(snapshot => {
     const choices = [];
-    snapshot.forEach(doc => choices.push(doc.data()));
+    snapshot.forEach(doc => choices.push({id: doc.id, ...doc.data()}));
 
     cb(choices);
   }, error => console.error(error));
@@ -103,6 +103,10 @@ const addChoice = (room, uid, choice) => {
     added_by: uid,
   })
 };
+
+const rankChoices = (room, uid, rankedChoices) => {
+
+}
 
 export { 
   signIn,

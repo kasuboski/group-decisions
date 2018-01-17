@@ -4,19 +4,15 @@ import update from 'react/lib/update';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import Card from '../components/Card';
+import Card from 'components/Card';
 
 class RankingList extends Component {
   constructor(props) {
     super(props);
     this.moveCard = this.moveCard.bind(this);
     this.state = {
-      cards: props.items.map(this.mapItemToCard),
+      cards: props.items,
     };
-  }
-
-  mapItemToCard = (item, i) => {
-    return {id: i, text: item.name};
   }
 
   moveCard(dragIndex, hoverIndex) {
@@ -32,7 +28,7 @@ class RankingList extends Component {
       },
     }));
 
-    this.props.onChoicesReordered(this.state.cards.map((card) => card.text));
+    this.props.onChoicesReordered(this.state.cards);
   }
 
   render() {
@@ -45,7 +41,7 @@ class RankingList extends Component {
             key={card.id}
             index={i}
             id={card.id}
-            text={card.text}
+            text={card.name}
             moveCard={this.moveCard}
           />
         ))}

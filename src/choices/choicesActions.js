@@ -33,10 +33,15 @@ const membersUpdated = members => ({type: 'MEMBERS_UPDATED', members});
 const areAllMembersReady = (members) => members.filter(member => member.ready).length === members.length;
 
 export function updateMembers(members) {
-    return dispatch => {
+    return async (dispatch, getState) => {
         dispatch( membersUpdated(members) );
         if (areAllMembersReady(members)) {
             dispatch( push('/rank') );
+            dispatch( membersUpdated([]) );
+
+            const room = getRoom(getState());
+            const uid = getUser(getState()).uid;
+            await markMemberReady(room, uid, false);
         }
     }
 }
