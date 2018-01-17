@@ -104,8 +104,26 @@ const addChoice = (room, uid, choice) => {
   })
 };
 
-const rankChoices = (room, uid, rankedChoices) => {
+const determineRank = (numChoices, index) => (numChoices - index);
 
+const rankChoices = async (room, uid, rankedChoices) => {
+  const numChoices = rankedChoices.length;
+  const roomRef = getRoom(room);
+  const choicesRef = roomRef.collection('choices');
+
+  const choicesInfo = rankedChoices.map((choice, idx) => (
+    { 
+      ref: choicesRef.doc(choice.id).collection('ranks').doc(uid), 
+      rank: determineRank(numChoices, idx)
+    }
+  ));
+
+  const batch = firebase.firestore().batch();
+  choicesInfo.forEach(choice => {
+    batch.set(choice.ref, { value: choice.rank });
+  });
+
+  await batch.commit();
 }
 
 export { 
@@ -119,5 +137,6 @@ export {
   setAllJoined,
   subscribeToAllJoined,
   subscribeToChoices,
+  rankChoices,
   addChoice,
 };

@@ -12,6 +12,8 @@ export default function choicesReducer(state = initialState, action) {
             return {...state, ...{ members: action.members } };
         case 'CHOICES_REORDERED':
             return {...state, ...{ choices: action.choices } };
+        case 'DONE_RANKING':
+            return {...state, ...{ rankedChoices: [...state.choices] } };
         case 'START_OVER':
             return initialState;
         default:
