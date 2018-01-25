@@ -9,30 +9,28 @@ import Card from 'components/Card';
 class RankingList extends Component {
   constructor(props) {
     super(props);
-    this.moveCard = this.moveCard.bind(this);
+
     this.state = {
       cards: props.items,
     };
   }
 
-  moveCard(dragIndex, hoverIndex) {
-    const { cards } = this.state;
+  moveCard = (dragIndex, hoverIndex) => {
+    const cards = this.props.items;
     const dragCard = cards[dragIndex];
 
-    this.setState(update(this.state, {
-      cards: {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragCard],
-        ],
-      },
-    }));
+    const newCards = update(cards, {
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, dragCard],
+      ],
+    });
 
-    this.props.onChoicesReordered(this.state.cards);
+    this.props.onChoicesReordered(newCards);
   }
 
   render() {
-    const { cards } = this.state;
+    const cards = this.props.items;
 
     return (
       <div>

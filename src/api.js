@@ -95,6 +95,18 @@ const subscribeToChoices = (room, cb) => {
   }, error => console.error(error));
 };
 
+const getChoices = async (room) => {
+  const choices = [];
+  const snapshot = await getRoom(room).collection('choices').get();
+  snapshot.forEach(doc => {
+    if (doc && doc.data()) {
+      choices.push({ id: doc.id, ...doc.data()});
+    }
+  });
+
+  return choices;
+};
+
 const addChoice = (room, uid, choice) => {
   const roomRef = getRoom(room);
   roomRef.collection('choices').add({
@@ -175,6 +187,7 @@ export {
   setAllJoined,
   subscribeToAllJoined,
   subscribeToChoices,
+  getChoices,
   addChoice,
   rankChoices,
   getResult,
