@@ -5,7 +5,7 @@ import NameStatus from './NameStatus';
 
 const Waiting = props => {
   const itemComponent = (item) => {
-    return props.showStatus ? (<NameStatus name={item.name} status={item.status} />) : (item.name)
+    return props.showStatus ? (<NameStatus name={item.name} status={item.ready ? 'Ready': 'Not Ready'} />) : (item.name)
   };
   return (
     <div>

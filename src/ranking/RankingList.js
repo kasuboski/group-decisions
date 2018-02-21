@@ -4,41 +4,33 @@ import update from 'react/lib/update';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import { Link } from 'react-router-dom'
-
-import Card from '../components/Card';
+import Card from 'components/Card';
 
 class RankingList extends Component {
   constructor(props) {
     super(props);
-    this.moveCard = this.moveCard.bind(this);
+
     this.state = {
-      cards: props.items.map(this.mapItemToCard),
+      cards: props.items,
     };
   }
 
-  mapItemToCard = (item, i) => {
-    return {id: i, text: item};
-  }
-
-  moveCard(dragIndex, hoverIndex) {
-    const { cards } = this.state;
+  moveCard = (dragIndex, hoverIndex) => {
+    const cards = this.props.items;
     const dragCard = cards[dragIndex];
 
-    this.setState(update(this.state, {
-      cards: {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragCard],
-        ],
-      },
-    }));
+    const newCards = update(cards, {
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, dragCard],
+      ],
+    });
 
-    this.props.onChoicesReordered(this.state.cards.map((card) => card.text));
+    this.props.onChoicesReordered(newCards);
   }
 
   render() {
-    const { cards } = this.state;
+    const cards = this.props.items;
 
     return (
       <div>
@@ -47,11 +39,16 @@ class RankingList extends Component {
             key={card.id}
             index={i}
             id={card.id}
-            text={card.text}
+            text={card.name}
             moveCard={this.moveCard}
           />
         ))}
-        <Link to="/result">Done Ranking</Link>
+        <button
+          type="button"
+          onClick={this.props.onDoneRanking}
+        >
+          Done Ranking
+        </button>
       </div>
     );
   }

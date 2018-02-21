@@ -1,26 +1,41 @@
+import React from 'react';
 import { connect } from 'react-redux';
-import { startOver, quit } from './resultActions';
-import { choicesReordered } from '../choices/choicesActions';
+
+import { getResult as getResultAction, startOver, quit } from './resultActions';
+import { getResult } from 'result/resultSelectors';
+import { getChoice } from 'choices/choicesSelectors';
 
 import Result from './Result';
 
+class ResultContainer extends React.Component {
+  componentDidMount() {
+    this.props.onGetResult();
+  }
+
+  render() {
+    return (
+      <Result {...this.props} />
+    );
+  }
+}
+
 const mapStateToProps = (state) => {
+  const result = getResult(state);
+  const resultChoice = result ? getChoice(state, result.choiceId).name : '';
   return {
-    result: state.choicesState.choices ? state.choicesState.choices[0] : [],
+    result: resultChoice,
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onChoicesReordered: (choices) => { dispatch( choicesReordered(choices) ) },
+    onGetResult: () => { dispatch( getResultAction() ) },
     onStartOver: () => { props.history.push('/choices'); dispatch( startOver()) },
     onQuit: () => { props.history.push('/'); dispatch( quit() ) },
   };
 };
 
-const ResultContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Result);
-
-export default ResultContainer;
+)(ResultContainer);

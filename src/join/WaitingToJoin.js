@@ -2,40 +2,62 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { listenForReceiveJoinRoom } from '../api';
+import { subscribeToMembers } from 'api';
+import { allJoined, allJoinedUpdate } from 'join/joinActions';
+import { getRoom, isCreator } from 'auth/authSelectors';
 
-import Waiting from '../components/Waiting';
+import Waiting from 'components/Waiting';
+import { subscribeToAllJoined } from '../api';
 
 class WaitingToJoin extends React.Component {
   render() {
     return (
       <div>
-        <Waiting items={this.props.players} showStatus={false} />
-        <button>All joined</button>
+        <Waiting items={this.props.members || []} showStatus={false} />
+        {this.props.isCreator && <button onClick={this.props.handleAllJoined}>All joined</button>}
       </div>
     );
   }
 }
 
 class WaitingToJoinListener extends React.Component {
+  state = {
+    data: null,
+  }
+
+  unsubscribeMembers = null;
+  unsubscribeAllJoined = null;
+
+  updateMembers = (members) => {
+    this.setState({data: members});
+  }
+
   componentDidMount() {
-    listenForReceiveJoinRoom((name) => {
-      // dispatch action to add name
-    });
+    this.unsubscribeMembers = subscribeToMembers(this.props.room, this.updateMembers);
+    this.unsubscribeAllJoined = subscribeToAllJoined(this.props.room, this.props.updateAllJoined);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeMembers();
+    this.unsubscribeAllJoined();
   }
 
   render() {
     return (
-      <WaitingToJoin {...this.props} />
+      <WaitingToJoin {...this.props} members={this.state.data} />
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  players: state.infoState.otherPlayers,
+  room: getRoom(state),
+  isCreator: isCreator(state),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => ({
+  handleAllJoined: () => dispatch(allJoined()),
+  updateAllJoined: (allJoined) => dispatch(allJoinedUpdate(allJoined)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(WaitingToJoinListener);
 

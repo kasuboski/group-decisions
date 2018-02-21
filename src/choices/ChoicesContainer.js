@@ -2,16 +2,24 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { listenForChoices } from '../api';
-import { addChoice, addChoiceState } from './choicesActions';
+import { getRoom } from 'auth/authSelectors';
+import { subscribeToChoices } from 'api';
+import { getChoices } from 'choices/choicesSelectors';
+import { addChoice, addChoices, doneWithChoices } from 'choices/choicesActions';
 
 import Choices from './Choices';
 
 class ChoicesListener extends Component {
+  unsubscribe = null;
+
   componentDidMount() {
-    listenForChoices((choice) => {
-        this.props.onAddChoiceUpdate(choice);
+    this.unsubscribe = subscribeToChoices(this.props.room, (choices) => {
+        this.props.onChoicesUpdate(choices);
     });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render() {
@@ -23,15 +31,16 @@ class ChoicesListener extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    choices: state.choicesState.choices
+    room: getRoom(state),
+    choices: getChoices(state),
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddChoice: (choice) => { dispatch( addChoice(choice) ) },
-    onAddChoiceUpdate: (choice) => { dispatch( addChoiceState(choice) ) },
-    onRankChoices: () => { props.history.push('/rank') },
+    onChoicesUpdate: (choices) => { dispatch( addChoices(choices) ) },
+    onRankChoices: () => { dispatch( doneWithChoices() ) },
   };
 };
 

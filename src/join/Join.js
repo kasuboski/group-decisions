@@ -1,43 +1,41 @@
 import React from 'react';
+import { SubmissionError } from 'redux-form';
 
-export default class Join extends React.Component {
-    
-        state = {
-            room: '',
-            name: '',
-        }
-    
-        onChange = (event) => {
-            this.setState({ [event.target.name]: event.target.value });
-        }
-    
-        onSubmit = (event) => {
-            event.preventDefault();
+import { doesRoomExist } from 'api';
 
-            this.props.joinRoomClicked(this.state.room, this.state.name);
-            this.setState({
-                room: '',
-                name: '',
-            });
-        }
-    
-        render() {
-            return (
-                <div>
-                    <form onSubmit={this.onSubmit}>
-                        <label>Room
-                            <input name='room' value={this.state.room} onChange={this.onChange} />
-                        </label>
+import JoinForm from './JoinForm';
 
-                        <br />
-                        <label>Name
-                            <input name='name' value={this.state.name} onChange={this.onChange} />
-                        </label>
+class Join extends React.Component {
+    submit = (values) => {
+        const { room, name, isCreator = false } = values;
+        return doesRoomExist(room).then(roomExists => {
+            if (isCreator) {
+                if (roomExists) {
+                    throw new SubmissionError({
+                        room: 'Room already exists',
+                        _error: "Couldn't create room",
+                    });
+                }
+            } else {
+                if (!roomExists) {
+                    throw new SubmissionError({
+                        room: "Room doesn't exist",
+                        _error: "Couldn't join room",
+                    });
+                }
+            }
 
-                        <br />
-                        <button>Join Room</button>
-                    </form>
-                </div>
-            );
-        }
+            this.props.joinRoomClicked(room, name, isCreator);
+        });
     }
+
+    render() {
+        return (
+            <div>
+                <JoinForm onSubmit={this.submit} />
+            </div>
+        );
+    }
+}
+
+export default Join;

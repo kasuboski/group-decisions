@@ -1,11 +1,19 @@
 import { combineReducers } from 'redux';
 
-import choicesReducer from '../choices/choicesReducer';
-import infoReducer from '../infoReducer';
+import { reducer as formReducer } from 'redux-form';
+
+import { routerReducer } from 'react-router-redux'
+
+import authReducer from 'auth/authReducer';
+import choicesReducer from 'choices/choicesReducer';
+import resultReducer from 'result/resultReducer';
 
 const rootReducer = combineReducers({
-    infoState: infoReducer,
+    authState: authReducer,
     choicesState: choicesReducer,
+    resultState: resultReducer,
+    form: formReducer,
+    router: routerReducer,
 });
 
 export default rootReducer;

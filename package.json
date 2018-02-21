@@ -3,21 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^4.8.2",
+    "history": "^4.7.2",
     "react": "^15.6.1",
     "react-dnd": "^2.4.0",
     "react-dnd-html5-backend": "^2.4.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.0.11",
-    "redux-thunk": "^2.2.0",
-    "socket.io": "^2.0.3",
-    "socket.io-client": "^2.0.3"
+    "redux-devtools-extension": "^2.13.2",
+    "redux-form": "^7.2.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "deploy": "firebase deploy",
     "eject": "react-scripts eject"
   }
 }

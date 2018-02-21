@@ -1,8 +1,24 @@
 import {
+    getResult as getResultApi,
     leaveRoom as leaveRoomApi,
-} from '../api';
+} from 'api';
 
-export function startOver() {
+import { getRoom } from 'auth/authSelectors';
+import { getChoices } from 'choices/choicesSelectors';
+
+const receivedResult = result => ({ type: 'RECEIVED_RESULT', result });
+
+const getResult = () => {
+    return async (dispatch, getState) => {
+        const room = getRoom(getState());
+        const choices = getChoices(getState());
+
+        const result = await getResultApi(room, choices);
+        dispatch( receivedResult(result) );
+    };
+};
+
+function startOver() {
     return { type: 'START_OVER' };
 }
 
@@ -12,9 +28,15 @@ function leaveRoom(room) {
     }
 }
 
-export function quit() {
+function quit() {
     return (dispatch, getState) => {
-        dispatch( leaveRoom(getState().infoState.room) );
+        dispatch( leaveRoom('FIXME') );
         dispatch( startOver() );
     }
 }
+
+export {
+    getResult,
+    startOver,
+    quit,
+};
